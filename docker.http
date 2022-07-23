@@ -1,0 +1,12 @@
+FROM ubuntu:20.04
+ENV DEBIAN_FRONTEND noninteractive
+WORKDIR /var/www/html
+COPY entrypoint.sh /root/
+COPY index.html /var/www/html
+RUN apt update &&\
+    apt install vim  -y &&\
+    apt install apache2 -y &&\
+    /etc/init.d/apache2 start
+     
+CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
+EXPOSE 80
